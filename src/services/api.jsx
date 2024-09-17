@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 // Create an Axios instance
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true, // Ensures cookies are sent with requests
 });
 
@@ -25,7 +25,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // If unauthorized, clear the token and redirect to login
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      window.location.href = '/';
       toast.error('Session expired, please log in again');
     }
     return Promise.reject(error); // Return the error for further handling
@@ -68,7 +68,7 @@ export const fetchResults = async () => {
   } catch (error) {
     if (error.response.status === 401) {
       toast.error('Unauthorized: Please log in again');
-      window.location.href = '/login';
+      window.location.href = '/';
     } else {
       toast.error('Failed to fetch results');
     }
