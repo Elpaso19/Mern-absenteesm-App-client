@@ -7,19 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data } = await axios.get('/auth/me');
-        setUser(data.user);
-      } catch (error) {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkAuth();
-  }, []);
+
 
   const login = async (credentials) => {
     const { data } = await axios.post('/auth/login', credentials);

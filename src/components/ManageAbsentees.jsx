@@ -40,13 +40,10 @@ const ManageAbsentees = () => {
 
     fetchAbsentees();
   }, [examId]);
-    
-    
-    // console.log(absentees)
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-md">
-      <h2 className="text-xl font-bold mb-4">Manage Absentees</h2>
+    <div className="p-6 bg-white shadow-md rounded-md">
+      <h2 className="text-2xl font-bold mb-4">Manage Absentees</h2>
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700">Select Exam</label>
         <select
@@ -62,35 +59,39 @@ const ManageAbsentees = () => {
           ))}
         </select>
       </div>
+
       {absentees.length === 0 ? (
         <p>No absentees found.</p>
       ) : (
-        <table className="min-w-full bg-white border">
-          <thead>
-            <tr>
-              {/* <th className="py-2 px-4 border-b">Student Name</th> */}
-              <th className="py-2 px-4 border-b">Matric Number</th>
-              <th className="py-2 px-4 border-b">Surname</th>
-              <th className="py-2 px-4 border-b">Other Names</th>
-              <th className="py-2 px-4 border-b">Exam Title</th>
-              <th className="py-2 px-4 border-b">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {absentees.map((absentee) => (
-              <tr key={absentee._id}>
-                {/* <td className="py-2 px-4 border-b">{absentee.student.name}</td> */}
-                <td className="py-2 px-4 border-b">{absentee.studentMatricNumber}</td>
-                <td className="py-2 px-4 border-b">{absentee.surname}</td>
-                <td className="py-2 px-4 border-b">{absentee.otherName}</td>
-                <td className="py-2 px-4 border-b">{absentee. examTitle}</td>
-                <td className="py-2 px-4 border-b">
-                  {new Date(absentee.createdAt).toLocaleDateString()}
-                </td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-300">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="py-3 px-6 border-b border-r border-gray-300 text-left">Matric Number</th>
+                <th className="py-3 px-6 border-b border-r border-gray-300 text-left">Surname</th>
+                <th className="py-3 px-6 border-b border-r border-gray-300 text-left">Other Names</th>
+                <th className="py-3 px-6 border-b border-r border-gray-300 text-left">Exam Title</th>
+                <th className="py-3 px-6 border-b border-gray-300 text-left">Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {absentees.map((absentee, index) => (
+                <tr
+                  key={absentee._id}
+                  className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} // Alternating row colors
+                >
+                  <td className="py-3 px-6 border-b border-r border-gray-300 text-center">{absentee.studentMatricNumber}</td>
+                  <td className="py-3 px-6 border-b border-r border-gray-300 text-center">{absentee.surname}</td>
+                  <td className="py-3 px-6 border-b border-r border-gray-300 text-center">{absentee.otherName}</td>
+                  <td className="py-3 px-6 border-b border-r border-gray-300 text-center">{absentee.examTitle}</td>
+                  <td className="py-3 px-6 border-b border-gray-300 text-center">
+                    {new Date(absentee.createdAt).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
